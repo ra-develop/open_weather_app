@@ -36,6 +36,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  #  A state-management library that:
+  #  - catches programming errors at compile time rather than at runtime
+  #  - removes nesting for listening/combining objects
+  #  - ensures that the code is testab
+  flutter_riverpod: ^2.4.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
