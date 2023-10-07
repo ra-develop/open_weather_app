@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,6 +43,29 @@ dependencies:
   #  - removes nesting for listening/combining objects
   #  - ensures that the code is testab
   flutter_riverpod: ^2.4.3
+
+  # This Flutter plugin provides an API for querying information about an application package.
+  # https://pub.dev/packages/package_info_plus
+  package_info_plus: ^4.1.0
+
+  # Wraps platform-specific persistent storage for simple data (NSUserDefaults on iOS and macOS,
+  #  SharedPreferences on Android, etc.). Data may be persisted to disk asynchronously,
+  #  and there is no guarantee that writes will be persisted to disk after returning,
+  #  so this plugin must not be used for storing critical data.
+  # https://pub.dev/packages/shared_preferences
+  shared_preferences: ^2.0.6
+
+  #  Flutter Hooks
+  #  A Flutter implementation of React hooks: https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889
+  #  Hooks are a new kind of object that manage the life-cycle of a Widget.
+  #  They exist for one reason: increase the code-sharing between widgets by removing duplicates.
+  flutter_hooks: ^0.20.2
+
+  #  A powerful HTTP networking package for Dart/Flutter, supports Global configuration,
+  #  Interceptors, FormData, Request cancellation, File uploading/downloading, Timeout,
+  #  Custom adapters, Transformers, etc.
+  dio: ^5.3.3
+
 
 dev_dependencies:
   flutter_test:
