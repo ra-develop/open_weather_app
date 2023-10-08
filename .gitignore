@@ -78,3 +78,4 @@ lib/generated_plugin_registrant.dart
 #editor configs
 .vscode
 .idea
+/requirements/

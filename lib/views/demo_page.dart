@@ -1,11 +1,17 @@
 import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:open_weather_app/widgets/waiting_view.dart';
 
+import '../models/data/CurrentWeatherData.dart';
+import '../providers/get_current_weather_data.dart';
 import '../services/core/app_routes.dart';
+import '../services/utils/location_helpers.dart';
+import '../widgets/sized_spaces.dart';
 
-class DemoPage extends StatefulWidget {
+class DemoPage extends ConsumerStatefulWidget {
   const DemoPage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -20,11 +26,15 @@ class DemoPage extends StatefulWidget {
   final String title;
 
   @override
-  State<DemoPage> createState() => _DemoPageState();
+  ConsumerState<DemoPage> createState() => _DemoPageState();
 }
 
-class _DemoPageState extends State<DemoPage> {
+class _DemoPageState extends ConsumerState<DemoPage> {
   int _counter = 0;
+  CurrentWeatherData _currentWeatherData = CurrentWeatherData();
+  bool _isWeatherDataLoaded = false;
+  final GetCurrentWeatherDataArgs _getCurrentWeatherDataArgs =
+      GetCurrentWeatherDataArgs();
 
   void _incrementCounter() {
     setState(() {
@@ -38,7 +48,18 @@ class _DemoPageState extends State<DemoPage> {
   }
 
   @override
+  void initState() {
+    // _placesFilteringArgs = widget.placesFilterArgs ??
+    //     PlacesFilterArgs(mode: PlacesFilterMode.upcoming);
+    ref.read(positionProvider);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    AsyncValue<Position> currentPosition = ref.watch(positionProvider);
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -74,6 +95,51 @@ class _DemoPageState extends State<DemoPage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            currentPosition.when(
+              loading: () => const Expanded(child: WaitingView()),
+              error: (error, stack) => Expanded(
+                  child: WaitingView(
+                message: "Error: ${error.toString()}",
+              )),
+              data: (currentPosition) {
+                setState(() {
+                  // _getCurrentWeatherDataArgs = GetCurrentWeatherDataArgs(
+                  //     latitude: currentPosition.latitude,
+                  //     longitude: currentPosition.longitude
+                  // );
+                  _getCurrentWeatherDataArgs.latitude =
+                      currentPosition.latitude;
+                  _getCurrentWeatherDataArgs.longitude =
+                      currentPosition.longitude;
+                });
+
+                AsyncValue<CurrentWeatherData> currentWeatherData = ref.watch(
+                    getCurrentWeatherDataProvider(_getCurrentWeatherDataArgs));
+                return Column(
+                  children: [
+                    const Text("Your geo position is:"),
+                    Text("latitude: ${_getCurrentWeatherDataArgs.latitude}"),
+                    Text("longitude: ${_getCurrentWeatherDataArgs.longitude}"),
+                    const VSpacer(20),
+                    currentWeatherData.when(
+                        data: (currentWeatherData) {
+                          return Column(
+                            children: [
+                              const Text("Current weather is:"),
+                              Text("City: ${currentWeatherData.name}"),
+                              Text("Temp: ${currentWeatherData.main?.temp}"),
+                            ],
+                          );
+                        },
+                        error: (error, stack) => WaitingView(
+                              message: "Error: ${error.toString()}",
+                            ),
+                        loading: () => const CircularProgressIndicator()),
+                  ],
+                );
+              },
+            ),
+            const VSpacer(20),
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -81,6 +147,7 @@ class _DemoPageState extends State<DemoPage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const VSpacer(20),
             ElevatedButton(
               onPressed: () {
                 setState(() {

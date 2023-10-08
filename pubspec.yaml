@@ -66,6 +66,12 @@ dependencies:
   #  Custom adapters, Transformers, etc.
   dio: ^5.3.3
 
+  # A Flutter geolocation plugin which provides easy access to platform specific location services
+  # (FusedLocationProviderClient or if not available the LocationManager on
+  #  Android and CLLocationManager on iOS).
+  geolocator: ^10.1.0
+
+
 
 dev_dependencies:
   flutter_test:

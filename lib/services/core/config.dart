@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum Flavor { DEVELOPMENT, STAGE, PRODUCTION }
 
+enum Units { standard, metric, imperial }
+
 Future<void> configInit(Flavor flavor) async {
   Config.packageInfo = await PackageInfo.fromPlatform();
 
@@ -26,6 +28,9 @@ Future<void> configInit(Flavor flavor) async {
   //debug
   Config.debug = flavor == Flavor.DEVELOPMENT || flavor == Flavor.STAGE;
   Config.version = '1';
+
+  // Used units of measurement
+  Config.units = Units.metric;
 }
 
 class Config {
@@ -39,6 +44,7 @@ class Config {
   static Platform appPlatform = Platform();
   static late bool debug;
   static late String version;
+  static late Units units;
 
   static String get getBaseUrl {
     switch (appFlavor) {

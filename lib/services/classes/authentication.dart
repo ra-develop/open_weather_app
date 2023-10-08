@@ -9,8 +9,6 @@ final authenticationServiceProvider =
   return AuthenticationService();
 });
 
-// Thanks to Robert Brunhage
-// https://github.com/RobertBrunhage/flutter_firebase_auth_tutorial
 class AuthenticationService extends ChangeNotifier {
   AuthenticationService() {
     initUserToken();
@@ -25,7 +23,23 @@ class AuthenticationService extends ChangeNotifier {
     notifyListeners();
   }
 
+  User _appUserData = User();
+
+  User get appUserData => _appUserData;
+
+  set appUserData(User value) {
+    _appUserData = value;
+    notifyListeners();
+  }
+
   Future<void> initUserToken() async {
     accessToken = Config.getTokenAPI;
   }
+}
+
+class User {
+  String firstName = "";
+  String secondName = "";
+  double latitude = 0; // "latitude": 45.4836389,
+  double longitude = 0; // "longitude": 9.2249464,
 }
