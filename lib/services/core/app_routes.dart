@@ -18,10 +18,12 @@ import 'package:flutter/material.dart';
 // import '../views/person/person_detial_page.dart';
 // import '../views/login/check_login_screen.dart';
 // import '../views/on_boarding/on_boarding.dart';
+import '../../views/app_home_page.dart';
 import '../../views/demo_page.dart';
 import '../../widgets/waiting_view.dart';
 
 class AppRoutes {
+  static const demoPage = '/demoPage';
   static const appHome = '/appHomepage';
   static const simpleWait = "/simpleWait";
   static const waitingView = "/waitingView";
@@ -43,7 +45,7 @@ class AppRoutes {
 
   Route? getRoute(RouteSettings settings) {
     switch (settings.name) {
-      /*
+    /*
       case AppRoutes.tutorial:
         return _buildRoute(const Tutorial(), settings: settings);
       case AppRoutes.login:
@@ -113,8 +115,12 @@ class AppRoutes {
             ),
             settings: settings);
 
-      case AppRoutes.appHome:
+      case AppRoutes.demoPage:
         return _buildRoute(const DemoPage(title: 'Flutter Demo Page'),
+            settings: settings);
+
+      case AppRoutes.appHome:
+        return _buildRoute(const AppHomePage(title: 'Flutter OpenWeather'),
             settings: settings);
 
       default:

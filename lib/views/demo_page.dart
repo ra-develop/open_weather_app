@@ -31,8 +31,6 @@ class DemoPage extends ConsumerStatefulWidget {
 
 class _DemoPageState extends ConsumerState<DemoPage> {
   int _counter = 0;
-  CurrentWeatherData _currentWeatherData = CurrentWeatherData();
-  bool _isWeatherDataLoaded = false;
   final GetCurrentWeatherDataArgs _getCurrentWeatherDataArgs =
       GetCurrentWeatherDataArgs();
 
