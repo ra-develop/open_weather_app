@@ -43,10 +43,11 @@ dependencies:
   #  - removes nesting for listening/combining objects
   #  - ensures that the code is testab
   flutter_riverpod: ^2.4.3
+  hooks_riverpod: ^2.4.3
 
   # This Flutter plugin provides an API for querying information about an application package.
   # https://pub.dev/packages/package_info_plus
-  package_info_plus: ^4.1.0
+  package_info_plus: ^5.0.0
 
   # Wraps platform-specific persistent storage for simple data (NSUserDefaults on iOS and macOS,
   #  SharedPreferences on Android, etc.). Data may be persisted to disk asynchronously,
@@ -71,6 +72,18 @@ dependencies:
   #  Android and CLLocationManager on iOS).
   geolocator: ^10.1.0
 
+  # This package provides internationalization and localization facilities, including message
+  # translation, plurals and genders, date/number formatting and parsing, and bidirectional text.
+  # https://pub.dev/packages/intl#-readme-tab-
+  intl: ^0.18.1
+
+  # This package allows programmers to annotate Dart objects in order to Serialize / Deserialize
+  # them to / from JSON.
+  # https://pub.dev/packages/dart_json_mapper
+  dart_json_mapper: ^2.2.9
+
+  #  Being able to compare objects in Dart often involves having to override the == operator as well as hashCode.
+  equatable: ^2.0.5
 
 
 dev_dependencies:
@@ -83,6 +96,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -49,12 +49,12 @@ class Config {
   static String get getBaseUrl {
     switch (appFlavor) {
       case Flavor.DEVELOPMENT:
-        return 'https://api.openweathermap.org/data/2.5';
+        return 'https://api.openweathermap.org';
       case Flavor.STAGE:
-        return 'https://api.openweathermap.org/data/2.5';
+        return 'https://api.openweathermap.org';
       case Flavor.PRODUCTION:
       default:
-        return 'https://api.openweathermap.org/data/2.5';
+      return 'https://api.openweathermap.org';
     }
   }
 

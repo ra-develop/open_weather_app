@@ -23,8 +23,8 @@ Future<Position> updateCurrentPosition(AuthenticationService auth) async {
       // timeLimit: const Duration(seconds: 120),
       desiredAccuracy: LocationAccuracy.best,
       forceAndroidLocationManager: false);
-  auth.appUserData.latitude = position.latitude;
-  auth.appUserData.longitude = position.longitude;
+  auth.updateUserPosition(
+      latitude: position.latitude, longitude: position.longitude);
   return position;
 }
 

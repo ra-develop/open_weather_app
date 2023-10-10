@@ -21,7 +21,6 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-    // Initialize the Firebase Analytics
     super.initState();
   }
 

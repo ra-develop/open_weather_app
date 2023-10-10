@@ -79,3 +79,6 @@ lib/generated_plugin_registrant.dart
 .vscode
 .idea
 /requirements/
+/lib/main.mapper.g.dart
+/ios/Podfile
+/ios/Podfile.lock

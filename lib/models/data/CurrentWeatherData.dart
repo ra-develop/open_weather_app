@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:dart_json_mapper/dart_json_mapper.dart';
+
+import 'FiveDayWeatherForecast.dart';
+
 /// coord : {"lon":10.99,"lat":44.34}
 /// weather : [{"id":501,"main":"Rain","description":"moderate rain","icon":"10d"}]
 /// base : "stations"
@@ -21,6 +25,7 @@ CurrentWeatherData currentWeatherDataFromJson(String str) =>
 String currentWeatherDataToJson(CurrentWeatherData data) =>
     json.encode(data.toJson());
 
+@jsonSerializable
 class CurrentWeatherData {
   CurrentWeatherData({
     Coord? coord,
@@ -192,10 +197,12 @@ class CurrentWeatherData {
 /// sunrise : 1661834187
 /// sunset : 1661882248
 
+/*
 Sys sysFromJson(String str) => Sys.fromJson(json.decode(str));
 
 String sysToJson(Sys data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Sys {
   Sys({
     num? type,
@@ -260,13 +267,16 @@ class Sys {
     return map;
   }
 }
+*/
 
 /// all : 100
+/*
 
 Clouds cloudsFromJson(String str) => Clouds.fromJson(json.decode(str));
 
 String cloudsToJson(Clouds data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Clouds {
   Clouds({
     num? all,
@@ -295,13 +305,15 @@ class Clouds {
     return map;
   }
 }
+*/
 
 /// 1h : 3.16
-
+/*
 Rain rainFromJson(String str) => Rain.fromJson(json.decode(str));
 
 String rainToJson(Rain data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Rain {
   Rain({
     num? h,
@@ -330,15 +342,18 @@ class Rain {
     return map;
   }
 }
+*/
 
 /// speed : 0.62
 /// deg : 349
 /// gust : 1.18
+/*
 
 Wind windFromJson(String str) => Wind.fromJson(json.decode(str));
 
 String windToJson(Wind data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Wind {
   Wind({
     num? speed,
@@ -385,6 +400,7 @@ class Wind {
     return map;
   }
 }
+*/
 
 /// temp : 298.48
 /// feels_like : 298.74
@@ -395,10 +411,12 @@ class Wind {
 /// sea_level : 1015
 /// grnd_level : 933
 
+/*
 Main mainFromJson(String str) => Main.fromJson(json.decode(str));
 
 String mainToJson(Main data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Main {
   Main({
     num? temp,
@@ -490,16 +508,19 @@ class Main {
     return map;
   }
 }
+*/
 
 /// id : 501
 /// main : "Rain"
 /// description : "moderate rain"
 /// icon : "10d"
+/*
 
 Weather weatherFromJson(String str) => Weather.fromJson(json.decode(str));
 
 String weatherToJson(Weather data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Weather {
   Weather({
     num? id,
@@ -555,14 +576,17 @@ class Weather {
     return map;
   }
 }
+*/
 
 /// lon : 10.99
 /// lat : 44.34
+/*
 
 Coord coordFromJson(String str) => Coord.fromJson(json.decode(str));
 
 String coordToJson(Coord data) => json.encode(data.toJson());
 
+@jsonSerializable
 class Coord {
   Coord({
     num? lon,
@@ -600,3 +624,4 @@ class Coord {
     return map;
   }
 }
+*/

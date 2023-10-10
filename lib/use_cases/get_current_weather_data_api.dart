@@ -19,9 +19,11 @@ Future<CurrentWeatherData> getCurrentWeatherDataApi(AuthenticationService auth,
     'appid': auth.accessToken,
   };
   try {
-    response = await dio.post('/weather', queryParameters: queryParameters);
+    response =
+        await dio.post('/data/2.5/weather', queryParameters: queryParameters);
   } on DioException catch (e) {
-    dioErrorHandler(e, moduleName: "getStylesProvider");
+    dioErrorHandler(e, moduleName: "getCurrentWeatherDataApi");
+    // rethrow;
     throw Exception("Access to CMS: ${e.message}");
   }
   CurrentWeatherData results = CurrentWeatherData();
@@ -30,6 +32,8 @@ Future<CurrentWeatherData> getCurrentWeatherDataApi(AuthenticationService auth,
     results = CurrentWeatherData.fromJson(json);
   } catch (error) {
     developer.log("Error is $error", name: "getCurrentWeatherDataApi");
+    throw Exception("Access to CMS: $error");
+    // rethrow;
   }
   return results;
 }

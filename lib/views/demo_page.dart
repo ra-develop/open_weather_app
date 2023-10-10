@@ -101,10 +101,6 @@ class _DemoPageState extends ConsumerState<DemoPage> {
               )),
               data: (currentPosition) {
                 setState(() {
-                  // _getCurrentWeatherDataArgs = GetCurrentWeatherDataArgs(
-                  //     latitude: currentPosition.latitude,
-                  //     longitude: currentPosition.longitude
-                  // );
                   _getCurrentWeatherDataArgs.latitude =
                       currentPosition.latitude;
                   _getCurrentWeatherDataArgs.longitude =

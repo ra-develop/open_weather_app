@@ -47,8 +47,10 @@ class WaitingView extends HookWidget {
       counter.value = controller.value;
     });
     controller.forward();
-    if (message != null) {
+    final isLogPrinted = useState(false);
+    if (message != null && !isLogPrinted.value) {
       developer.log(message!, name: "WaitingView");
+      isLogPrinted.value = true;
     }
     // controller.repeat(reverse: true);
     return Scaffold(

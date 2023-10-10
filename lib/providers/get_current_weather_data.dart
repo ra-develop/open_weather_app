@@ -1,3 +1,5 @@
+import 'package:dart_json_mapper/dart_json_mapper.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_weather_app/models/data/CurrentWeatherData.dart';
 
@@ -9,7 +11,10 @@ import '../use_cases/get_current_weather_data_api.dart';
 /// @param double? [latitude]
 ///
 /// @param double? [longitude]
-class GetCurrentWeatherDataArgs {
+///
+
+@jsonSerializable
+class GetCurrentWeatherDataArgs extends Equatable {
   GetCurrentWeatherDataArgs({
     this.latitude,
     this.longitude,
@@ -17,10 +22,14 @@ class GetCurrentWeatherDataArgs {
 
   double? latitude;
   double? longitude;
+
+  @override
+  List<Object?> get props => [latitude, longitude];
 }
 
 final getCurrentWeatherDataProvider =
-    FutureProvider.family<CurrentWeatherData, GetCurrentWeatherDataArgs>(
+FutureProvider.autoDispose
+    .family<CurrentWeatherData, GetCurrentWeatherDataArgs>(
         (ref, getCurrentWeatherDataArgs) async {
   final auth = ref.read(authenticationServiceProvider);
   return await getCurrentWeatherDataApi(auth,

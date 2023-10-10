@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dart_json_mapper/dart_json_mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_weather_app/services/core/config.dart';
@@ -32,11 +33,18 @@ class AuthenticationService extends ChangeNotifier {
     notifyListeners();
   }
 
+  updateUserPosition({required double latitude, required double longitude}) {
+    _appUserData.latitude = latitude;
+    _appUserData.longitude = longitude;
+    notifyListeners();
+  }
+
   Future<void> initUserToken() async {
     accessToken = Config.getTokenAPI;
   }
 }
 
+@jsonSerializable
 class User {
   String firstName = "";
   String secondName = "";
