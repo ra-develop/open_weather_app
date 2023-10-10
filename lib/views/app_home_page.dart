@@ -20,9 +20,6 @@ class AppHomePage extends HookConsumerWidget {
 
     final AsyncValue<Position> currentPosition = ref.watch(positionProvider);
 
-    final AsyncValue<CurrentWeatherData> getCurrentWeatherData = ref
-        .watch(getCurrentWeatherDataProvider(getCurrentWeatherDataArgs.value));
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -44,6 +41,10 @@ class AppHomePage extends HookConsumerWidget {
             getCurrentWeatherDataArgs.value = GetCurrentWeatherDataArgs(
                 latitude: currentPosition.latitude,
                 longitude: currentPosition.longitude);
+
+            final AsyncValue<CurrentWeatherData> getCurrentWeatherData =
+                ref.watch(getCurrentWeatherDataProvider(
+                    getCurrentWeatherDataArgs.value));
 
             return getCurrentWeatherData.when(
               loading: () => SizedBox(
