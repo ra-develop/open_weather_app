@@ -16,7 +16,7 @@ final dioProvider = Provider<Dio>((ref) {
 
 BaseOptions dioBaseOptions() {
   return BaseOptions(
-    baseUrl: Config.getBaseUrl,
+    baseUrl: Config.getApiBaseUrl,
     contentType: 'application/x-www-form-urlencoded',
     // connectTimeout: 5000,
   );

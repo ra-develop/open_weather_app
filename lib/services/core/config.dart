@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:open_weather_app/models/enumerators/unit_measure.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum Flavor { DEVELOPMENT, STAGE, PRODUCTION }
 
-enum Units { standard, metric, imperial }
 
 Future<void> configInit(Flavor flavor) async {
   Config.packageInfo = await PackageInfo.fromPlatform();
@@ -30,11 +30,11 @@ Future<void> configInit(Flavor flavor) async {
   Config.version = '1';
 
   // Used units of measurement
-  Config.units = Units.metric;
+  Config.units = UnitMeasure.metric;
 }
 
 class Config {
-  static String defaultIcon = "assets/icons/winker_logo_fill.png";
+  static String defaultIcon = "assets/images/lb_ic_sad_cloud.png";
   static Flavor appFlavor = Flavor.PRODUCTION;
   static late SharedPreferences appPreferences;
   static late bool loginStatus;
@@ -44,17 +44,41 @@ class Config {
   static Platform appPlatform = Platform();
   static late bool debug;
   static late String version;
-  static late Units units;
+  static late UnitMeasure units;
 
-  static String get getBaseUrl {
+  static String get getApiBaseUrl {
     switch (appFlavor) {
       case Flavor.DEVELOPMENT:
-        return 'https://api.openweathermap.org';
+        return 'https://api.$getUrlDomainName';
       case Flavor.STAGE:
-        return 'https://api.openweathermap.org';
+        return 'https://api.$getUrlDomainName';
       case Flavor.PRODUCTION:
       default:
-      return 'https://api.openweathermap.org';
+        return 'https://api.$getUrlDomainName';
+    }
+  }
+
+  static String get getImageBaseUrl {
+    switch (appFlavor) {
+      case Flavor.DEVELOPMENT:
+        return 'https://$getUrlDomainName/img/wn/';
+      case Flavor.STAGE:
+        return 'https://$getUrlDomainName/img/wn/';
+      case Flavor.PRODUCTION:
+      default:
+        return 'https://$getUrlDomainName/img/wn/';
+    }
+  }
+
+  static String get getUrlDomainName {
+    switch (appFlavor) {
+      case Flavor.DEVELOPMENT:
+        return 'openweathermap.org';
+      case Flavor.STAGE:
+        return 'openweathermap.org';
+      case Flavor.PRODUCTION:
+      default:
+        return 'openweathermap.org';
     }
   }
 
