@@ -35,14 +35,14 @@ class _AppState extends State<App> {
         theme: ThemeData(
           // This is the theme of your application.
           appBarTheme: AppBarTheme(
-            elevation: 0,
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Palette.primary,
+              elevation: 0,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: McgPalette.primary,
+              ),
             ),
-          ),
-          // primarySwatch: generateMaterialColor(Palette.primary),
-          colorScheme: ColorScheme.fromSeed(seedColor: Palette.primary),
-          useMaterial3: true,
+            // primarySwatch: generateMaterialColor(Palette.primary),
+            colorScheme: ColorScheme.fromSeed(seedColor: McgPalette.primary),
+            useMaterial3: true,
             textTheme: GoogleFonts.shadowsIntoLightTextTheme()),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

@@ -31,8 +31,8 @@ class DemoPage extends ConsumerStatefulWidget {
 
 class _DemoPageState extends ConsumerState<DemoPage> {
   int _counter = 0;
-  final GetCurrentWeatherDataArgs _getCurrentWeatherDataArgs =
-      GetCurrentWeatherDataArgs();
+  GetCurrentWeatherDataArgs _getCurrentWeatherDataArgs =
+      const GetCurrentWeatherDataArgs();
 
   void _incrementCounter() {
     setState(() {
@@ -98,17 +98,25 @@ class _DemoPageState extends ConsumerState<DemoPage> {
               error: (error, stack) => Expanded(
                   child: WaitingView(
                 message: "Error: ${error.toString()}",
+                duration: const Duration(seconds: 1),
+                color: Colors.red,
+                infoIcon: const WarningSign(
+                  color: Colors.red,
+                ),
               )),
               data: (currentPosition) {
-                setState(() {
-                  _getCurrentWeatherDataArgs.latitude =
-                      currentPosition.latitude;
-                  _getCurrentWeatherDataArgs.longitude =
-                      currentPosition.longitude;
-                });
+                // setState(() {
+                // _getCurrentWeatherDataArgs.latitude =
+                //     currentPosition.latitude;
+                // _getCurrentWeatherDataArgs.longitude =
+                //     currentPosition.longitude;
+                final getCurrentWeatherDataArgs = GetCurrentWeatherDataArgs(
+                    latitude: currentPosition.latitude,
+                    longitude: currentPosition.longitude);
+                // });
 
                 AsyncValue<CurrentWeatherData> currentWeatherData = ref.watch(
-                    getCurrentWeatherDataProvider(_getCurrentWeatherDataArgs));
+                    getCurrentWeatherDataProvider(getCurrentWeatherDataArgs));
                 return Column(
                   children: [
                     const Text("Your geo position is:"),
@@ -127,6 +135,11 @@ class _DemoPageState extends ConsumerState<DemoPage> {
                         },
                         error: (error, stack) => WaitingView(
                               message: "Error: ${error.toString()}",
+                              duration: const Duration(seconds: 1),
+                              color: Colors.red,
+                              infoIcon: const WarningSign(
+                                color: Colors.red,
+                              ),
                             ),
                         loading: () => const CircularProgressIndicator()),
                   ],
@@ -180,9 +193,38 @@ class _DemoPageState extends ConsumerState<DemoPage> {
                   developer.log("Test waiting view pushed",
                       name: "WaitingView");
                   final arguments = WaitingViewArgs(
-                      message: "Test waiting view as warning message",
-                      duration: const Duration(seconds: 0),
-                      infoIcon: const Icon(Icons.error_outline));
+                    message: """
+Test waiting view as warning message
+       Test waiting view as warning message
+                Test waiting view as warning message
+                                Test waiting view as warning message
+Test waiting view as warning message
+    Test waiting view as warning message
+      Test waiting view as warning message
+Test waiting view as warning message. Test waiting view as warning message. Test waiting view as warning message. Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+Test waiting view as warning message
+                 """,
+                    duration: const Duration(seconds: 1),
+                    color: Colors.red,
+                    infoIcon: const WarningSign(
+                      color: Colors.red,
+                    ),
+                  );
                   Navigator.pushNamed(context, AppRoutes.waitingView,
                       arguments: arguments);
                 });
@@ -203,3 +245,4 @@ class _DemoPageState extends ConsumerState<DemoPage> {
     );
   }
 }
+

@@ -1,10 +1,10 @@
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:open_weather_app/models/data/CurrentWeatherData.dart';
 
 import '../../services/classes/authentication.dart';
-import '../use_cases/get_current_weather_data_api.dart';
+import '../models/data/FiveDayWeatherForecast.dart';
+import '../use_cases/get_five_day_weather_forecast_api.dart';
 
 /// Get CurrentWeatherData Arguments
 ///
@@ -14,8 +14,8 @@ import '../use_cases/get_current_weather_data_api.dart';
 ///
 
 @jsonSerializable
-class GetCurrentWeatherDataArgs extends Equatable {
-  const GetCurrentWeatherDataArgs({
+class GetFiveDayWeatherForecastArgs extends Equatable {
+  const GetFiveDayWeatherForecastArgs({
     this.latitude,
     this.longitude,
   });
@@ -27,11 +27,10 @@ class GetCurrentWeatherDataArgs extends Equatable {
   List<Object?> get props => [latitude, longitude];
 }
 
-final getCurrentWeatherDataProvider =
-FutureProvider.autoDispose
-    .family<CurrentWeatherData, GetCurrentWeatherDataArgs>(
-        (ref, getCurrentWeatherDataArgs) async {
+final getFiveDayWeatherForecastProvider = FutureProvider.autoDispose
+    .family<FiveDayWeatherForecast, GetFiveDayWeatherForecastArgs>(
+        (ref, getFiveDayWeatherForecastArgs) async {
   final auth = ref.read(authenticationServiceProvider);
-  return await getCurrentWeatherDataApi(auth,
-      getCurrentWeatherDataArgs: getCurrentWeatherDataArgs);
+  return await getFiveDayWeatherForecastApi(auth,
+      getFiveDayWeatherForecastArgs: getFiveDayWeatherForecastArgs);
 });

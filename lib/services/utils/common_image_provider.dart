@@ -7,29 +7,31 @@ import '../core/config.dart';
 
 ImageProvider commonImageProvider([String? imageUrl = ""]) {
   ImageProvider resultImageProvider;
-  String _imageUrl = imageUrl ?? "";
+  final String imageUrlString = imageUrl ?? "";
   try {
-    if (_imageUrl == "") {
+    if (imageUrlString == "") {
       resultImageProvider = AssetImage(Config.defaultIcon);
-    } else if (_imageUrl.startsWith("http")) {
+    } else if (imageUrlString.startsWith("http")) {
       resultImageProvider = NetworkImage(
-        _imageUrl,
+        imageUrlString,
       );
-    } else if (_imageUrl.contains("asset")) {
-      resultImageProvider = AssetImage(_imageUrl);
+    } else if (imageUrlString.contains("asset")) {
+      resultImageProvider = AssetImage(imageUrlString);
     } else {
-      if (File(_imageUrl).existsSync()) {
+      if (File(imageUrlString).existsSync()) {
         resultImageProvider = FileImage(
-          File(_imageUrl),
+          File(imageUrlString),
         );
       } else {
-        debugPrint("commonImageProvider: unable load image by path: $imageUrl");
+        debugPrint(
+            "commonImageProvider: unable load image by path: $imageUrlString");
         debugPrint("commonImageProvider: try to load default image");
         return AssetImage(Config.defaultIcon);
       }
     }
   } on Exception catch (e) {
-    debugPrint("commonImageProvider: unable load image by path: $imageUrl");
+    debugPrint(
+        "commonImageProvider: unable load image by path: $imageUrlString");
     debugPrint("commonImageProvider: try to load default image");
     debugPrint("commonImageProvider: by Exception: $e");
     return AssetImage(Config.defaultIcon);

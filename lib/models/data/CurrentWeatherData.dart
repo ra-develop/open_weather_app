@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:dart_json_mapper/dart_json_mapper.dart';
-
-import 'FiveDayWeatherForecast.dart';
+import 'package:open_weather_app/models/data/weather_data_detail.dart';
 
 /// coord : {"lon":10.99,"lat":44.34}
 /// weather : [{"id":501,"main":"Rain","description":"moderate rain","icon":"10d"}]
@@ -42,6 +41,8 @@ class CurrentWeatherData {
     num? id,
     String? name,
     num? cod,
+    num? pop,
+    String? dtTxt,
   }) {
     _coord = coord;
     _weather = weather;
@@ -57,6 +58,8 @@ class CurrentWeatherData {
     _id = id;
     _name = name;
     _cod = cod;
+    _pop = pop;
+    _dtTxt = dtTxt;
   }
 
   CurrentWeatherData.fromJson(dynamic json) {
@@ -79,6 +82,8 @@ class CurrentWeatherData {
     _id = json['id'];
     _name = json['name'];
     _cod = json['cod'];
+    _pop = json['pop'];
+    _dtTxt = json['dt_txt'];
   }
 
   Coord? _coord;
@@ -95,6 +100,8 @@ class CurrentWeatherData {
   num? _id;
   String? _name;
   num? _cod;
+  num? _pop;
+  String? _dtTxt;
 
   CurrentWeatherData copyWith({
     Coord? coord,
@@ -111,6 +118,8 @@ class CurrentWeatherData {
     num? id,
     String? name,
     num? cod,
+    num? pop,
+    String? dtTxt,
   }) =>
       CurrentWeatherData(
         coord: coord ?? _coord,
@@ -127,6 +136,8 @@ class CurrentWeatherData {
         id: id ?? _id,
         name: name ?? _name,
         cod: cod ?? _cod,
+        pop: pop ?? _pop,
+        dtTxt: dtTxt ?? _dtTxt,
       );
 
   Coord? get coord => _coord;
@@ -156,6 +167,10 @@ class CurrentWeatherData {
   String? get name => _name;
 
   num? get cod => _cod;
+
+  num? get pop => _pop;
+
+  String? get dtTxt => _dtTxt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -187,441 +202,8 @@ class CurrentWeatherData {
     map['id'] = _id;
     map['name'] = _name;
     map['cod'] = _cod;
+    map['pop'] = _pop;
+    map['dt_txt'] = _dtTxt;
     return map;
   }
 }
-
-/// type : 2
-/// id : 2075663
-/// country : "IT"
-/// sunrise : 1661834187
-/// sunset : 1661882248
-
-/*
-Sys sysFromJson(String str) => Sys.fromJson(json.decode(str));
-
-String sysToJson(Sys data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Sys {
-  Sys({
-    num? type,
-    num? id,
-    String? country,
-    num? sunrise,
-    num? sunset,
-  }) {
-    _type = type;
-    _id = id;
-    _country = country;
-    _sunrise = sunrise;
-    _sunset = sunset;
-  }
-
-  Sys.fromJson(dynamic json) {
-    _type = json['type'];
-    _id = json['id'];
-    _country = json['country'];
-    _sunrise = json['sunrise'];
-    _sunset = json['sunset'];
-  }
-
-  num? _type;
-  num? _id;
-  String? _country;
-  num? _sunrise;
-  num? _sunset;
-
-  Sys copyWith({
-    num? type,
-    num? id,
-    String? country,
-    num? sunrise,
-    num? sunset,
-  }) =>
-      Sys(
-        type: type ?? _type,
-        id: id ?? _id,
-        country: country ?? _country,
-        sunrise: sunrise ?? _sunrise,
-        sunset: sunset ?? _sunset,
-      );
-
-  num? get type => _type;
-
-  num? get id => _id;
-
-  String? get country => _country;
-
-  num? get sunrise => _sunrise;
-
-  num? get sunset => _sunset;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['type'] = _type;
-    map['id'] = _id;
-    map['country'] = _country;
-    map['sunrise'] = _sunrise;
-    map['sunset'] = _sunset;
-    return map;
-  }
-}
-*/
-
-/// all : 100
-/*
-
-Clouds cloudsFromJson(String str) => Clouds.fromJson(json.decode(str));
-
-String cloudsToJson(Clouds data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Clouds {
-  Clouds({
-    num? all,
-  }) {
-    _all = all;
-  }
-
-  Clouds.fromJson(dynamic json) {
-    _all = json['all'];
-  }
-
-  num? _all;
-
-  Clouds copyWith({
-    num? all,
-  }) =>
-      Clouds(
-        all: all ?? _all,
-      );
-
-  num? get all => _all;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['all'] = _all;
-    return map;
-  }
-}
-*/
-
-/// 1h : 3.16
-/*
-Rain rainFromJson(String str) => Rain.fromJson(json.decode(str));
-
-String rainToJson(Rain data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Rain {
-  Rain({
-    num? h,
-  }) {
-    _h = h;
-  }
-
-  Rain.fromJson(dynamic json) {
-    _h = json['1h'];
-  }
-
-  num? _h;
-
-  Rain copyWith({
-    num? h,
-  }) =>
-      Rain(
-        h: h ?? _h,
-      );
-
-  num? get h => _h;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['1h'] = _h;
-    return map;
-  }
-}
-*/
-
-/// speed : 0.62
-/// deg : 349
-/// gust : 1.18
-/*
-
-Wind windFromJson(String str) => Wind.fromJson(json.decode(str));
-
-String windToJson(Wind data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Wind {
-  Wind({
-    num? speed,
-    num? deg,
-    num? gust,
-  }) {
-    _speed = speed;
-    _deg = deg;
-    _gust = gust;
-  }
-
-  Wind.fromJson(dynamic json) {
-    _speed = json['speed'];
-    _deg = json['deg'];
-    _gust = json['gust'];
-  }
-
-  num? _speed;
-  num? _deg;
-  num? _gust;
-
-  Wind copyWith({
-    num? speed,
-    num? deg,
-    num? gust,
-  }) =>
-      Wind(
-        speed: speed ?? _speed,
-        deg: deg ?? _deg,
-        gust: gust ?? _gust,
-      );
-
-  num? get speed => _speed;
-
-  num? get deg => _deg;
-
-  num? get gust => _gust;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['speed'] = _speed;
-    map['deg'] = _deg;
-    map['gust'] = _gust;
-    return map;
-  }
-}
-*/
-
-/// temp : 298.48
-/// feels_like : 298.74
-/// temp_min : 297.56
-/// temp_max : 300.05
-/// pressure : 1015
-/// humidity : 64
-/// sea_level : 1015
-/// grnd_level : 933
-
-/*
-Main mainFromJson(String str) => Main.fromJson(json.decode(str));
-
-String mainToJson(Main data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Main {
-  Main({
-    num? temp,
-    num? feelsLike,
-    num? tempMin,
-    num? tempMax,
-    num? pressure,
-    num? humidity,
-    num? seaLevel,
-    num? grndLevel,
-  }) {
-    _temp = temp;
-    _feelsLike = feelsLike;
-    _tempMin = tempMin;
-    _tempMax = tempMax;
-    _pressure = pressure;
-    _humidity = humidity;
-    _seaLevel = seaLevel;
-    _grndLevel = grndLevel;
-  }
-
-  Main.fromJson(dynamic json) {
-    _temp = json['temp'];
-    _feelsLike = json['feels_like'];
-    _tempMin = json['temp_min'];
-    _tempMax = json['temp_max'];
-    _pressure = json['pressure'];
-    _humidity = json['humidity'];
-    _seaLevel = json['sea_level'];
-    _grndLevel = json['grnd_level'];
-  }
-
-  num? _temp;
-  num? _feelsLike;
-  num? _tempMin;
-  num? _tempMax;
-  num? _pressure;
-  num? _humidity;
-  num? _seaLevel;
-  num? _grndLevel;
-
-  Main copyWith({
-    num? temp,
-    num? feelsLike,
-    num? tempMin,
-    num? tempMax,
-    num? pressure,
-    num? humidity,
-    num? seaLevel,
-    num? grndLevel,
-  }) =>
-      Main(
-        temp: temp ?? _temp,
-        feelsLike: feelsLike ?? _feelsLike,
-        tempMin: tempMin ?? _tempMin,
-        tempMax: tempMax ?? _tempMax,
-        pressure: pressure ?? _pressure,
-        humidity: humidity ?? _humidity,
-        seaLevel: seaLevel ?? _seaLevel,
-        grndLevel: grndLevel ?? _grndLevel,
-      );
-
-  num? get temp => _temp;
-
-  num? get feelsLike => _feelsLike;
-
-  num? get tempMin => _tempMin;
-
-  num? get tempMax => _tempMax;
-
-  num? get pressure => _pressure;
-
-  num? get humidity => _humidity;
-
-  num? get seaLevel => _seaLevel;
-
-  num? get grndLevel => _grndLevel;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['temp'] = _temp;
-    map['feels_like'] = _feelsLike;
-    map['temp_min'] = _tempMin;
-    map['temp_max'] = _tempMax;
-    map['pressure'] = _pressure;
-    map['humidity'] = _humidity;
-    map['sea_level'] = _seaLevel;
-    map['grnd_level'] = _grndLevel;
-    return map;
-  }
-}
-*/
-
-/// id : 501
-/// main : "Rain"
-/// description : "moderate rain"
-/// icon : "10d"
-/*
-
-Weather weatherFromJson(String str) => Weather.fromJson(json.decode(str));
-
-String weatherToJson(Weather data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Weather {
-  Weather({
-    num? id,
-    String? main,
-    String? description,
-    String? icon,
-  }) {
-    _id = id;
-    _main = main;
-    _description = description;
-    _icon = icon;
-  }
-
-  Weather.fromJson(dynamic json) {
-    _id = json['id'];
-    _main = json['main'];
-    _description = json['description'];
-    _icon = json['icon'];
-  }
-
-  num? _id;
-  String? _main;
-  String? _description;
-  String? _icon;
-
-  Weather copyWith({
-    num? id,
-    String? main,
-    String? description,
-    String? icon,
-  }) =>
-      Weather(
-        id: id ?? _id,
-        main: main ?? _main,
-        description: description ?? _description,
-        icon: icon ?? _icon,
-      );
-
-  num? get id => _id;
-
-  String? get main => _main;
-
-  String? get description => _description;
-
-  String? get icon => _icon;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['main'] = _main;
-    map['description'] = _description;
-    map['icon'] = _icon;
-    return map;
-  }
-}
-*/
-
-/// lon : 10.99
-/// lat : 44.34
-/*
-
-Coord coordFromJson(String str) => Coord.fromJson(json.decode(str));
-
-String coordToJson(Coord data) => json.encode(data.toJson());
-
-@jsonSerializable
-class Coord {
-  Coord({
-    num? lon,
-    num? lat,
-  }) {
-    _lon = lon;
-    _lat = lat;
-  }
-
-  Coord.fromJson(dynamic json) {
-    _lon = json['lon'];
-    _lat = json['lat'];
-  }
-
-  num? _lon;
-  num? _lat;
-
-  Coord copyWith({
-    num? lon,
-    num? lat,
-  }) =>
-      Coord(
-        lon: lon ?? _lon,
-        lat: lat ?? _lat,
-      );
-
-  num? get lon => _lon;
-
-  num? get lat => _lat;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['lon'] = _lon;
-    map['lat'] = _lat;
-    return map;
-  }
-}
-*/

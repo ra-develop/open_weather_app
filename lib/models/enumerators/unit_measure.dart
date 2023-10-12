@@ -15,9 +15,9 @@ extension UnitMeasureExtension on UnitMeasure {
   String get unitSign {
     switch (this) {
       case UnitMeasure.metric:
-        return "℃";
+        return "˚C";
       case UnitMeasure.imperial:
-        return "℉";
+        return "˚F";
       case UnitMeasure.standard:
         return "˚K";
     }

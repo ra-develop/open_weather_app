@@ -20,8 +20,8 @@ final positionProvider = FutureProvider<Position>((ref) async {
 
 Future<Position> updateCurrentPosition(AuthenticationService auth) async {
   final position = await Geolocator.getCurrentPosition(
-      // timeLimit: const Duration(seconds: 120),
-      desiredAccuracy: LocationAccuracy.best,
+      timeLimit: const Duration(seconds: 60),
+      desiredAccuracy: LocationAccuracy.reduced,
       forceAndroidLocationManager: false);
   auth.updateUserPosition(
       latitude: position.latitude, longitude: position.longitude);

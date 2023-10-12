@@ -3,19 +3,21 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../services/utils/hex_to_color.dart';
-
 class WaitingViewArgs {
   final Duration? duration;
   final String? message;
   final Widget? infoIcon;
   final bool linearMode;
+  final Color? color;
+  final Widget? actions;
 
   WaitingViewArgs({
     this.message,
     this.duration,
     this.infoIcon,
     this.linearMode = false,
+    this.color,
+    this.actions,
   });
 }
 
@@ -26,17 +28,23 @@ class WaitingView extends HookWidget {
     this.duration,
     this.infoIcon,
     this.linearMode = false,
+    this.color,
+    this.actions,
   }) : super(key: key);
 
   final Duration? duration;
   final String? message;
   final Widget? infoIcon;
   final bool linearMode;
+  final Color? color;
+  final Widget? actions;
 
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(
-        fontSize: 30, fontWeight: FontWeight.bold, color: HexColor("#F31753"));
+        fontSize: 30,
+        fontWeight: FontWeight.bold,
+        color: color /*HexColor("#F31753")*/);
     final total = duration?.inSeconds ?? 1;
     final step = 1 / (total == 0 ? 1 : total);
     final counter = useState(0.0);
@@ -94,6 +102,7 @@ class WaitingView extends HookWidget {
                 width: 60,
                 height: 60,
                 child: CircularProgressIndicator(
+                  color: color,
                   value: (duration != null && duration != Duration.zero)
                       ? counter.value
                       : null,
@@ -102,18 +111,64 @@ class WaitingView extends HookWidget {
               ),
             ),
             Align(
-              alignment: const Alignment(0.0, 0.2),
+              alignment: const Alignment(0.0, 0.9),
               child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text(
-                  message != null ? message.toString() : '',
-                  textAlign: TextAlign.center,
+                padding: const EdgeInsets.only(top: 40.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2 - 130,
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Text(
+                          message != null ? message.toString() : '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: color),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
+            actions == null
+                ? Container()
+                : Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(height: 60, child: actions),
+                    ),
+                  ),
             // )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class WarningSign extends StatelessWidget {
+  final Color? color;
+
+  const WarningSign({
+    super.key,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "!",
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.bold,
+          fontSize: 40,
+          fontFamily: 'open_sans',
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }
