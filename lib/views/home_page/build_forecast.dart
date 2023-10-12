@@ -22,41 +22,26 @@ class BuildForecast extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<CurrentWeatherData> entries1 = [];
-    List<CurrentWeatherData> entriesDay = [];
-    List<CurrentWeatherData> entriesNight = [];
-
-    List<List<CurrentWeatherData>> entries = [];
+    final List<CurrentWeatherData> entriesData = [];
+    final List<List<CurrentWeatherData>> entriesPerDay = [];
 
     if (weatherData.list != null) {
       if (weatherData.list!.isNotEmpty) {
-        entriesDay = weatherData.list!
-            .where((element) => element.sys?.pod == "d")
-            .toList();
-        entriesNight = weatherData.list!
-            .where((element) => element.sys?.pod == "n")
-            .toList();
-
-        // entriesDay.add(weatherData.list!.first);
-        // weatherData.list!.asMap().forEach((index, value) {
-        //   if (index != 0) {
-        //     if (!entriesDay.any((element) => element.dtTxt?.substring(0, 9) == value.dtTxt?.substring(0,9))) {
-        //       entriesDay.add(value);
-        //     }
-        //   }
-        //
-        //
-        //
-        //   if (index % 8 == 0) {
-        //     entries1.add(value);
-        //   }
-        // });
-
+        entriesData.add(weatherData.list!.first);
         weatherData.list!.asMap().forEach((index, value) {
-          if (index % 8 == 0) {
-            entries1.add(value);
+          if (index != 0) {
+            final previousDate = entriesData.last.dtTxt ?? "";
+            final dateString = value.dtTxt?.substring(0, 10);
+            if (!previousDate.contains(dateString as Pattern)) {
+              _sortEntries(entriesData);
+              entriesPerDay.add(entriesData.toList());
+              entriesData.clear();
+            }
+            entriesData.add(value);
           }
         });
+        _sortEntries(entriesData);
+        entriesPerDay.add(entriesData.toList());
       }
     }
 
@@ -65,11 +50,11 @@ class BuildForecast extends HookConsumerWidget {
       child: ListView.builder(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
           scrollDirection: Axis.horizontal,
-          itemCount: entries1.length,
+          itemCount: entriesPerDay.length,
           itemBuilder: (BuildContext context, int index) {
-            final item = entries1[index];
+            final item = entriesPerDay[index];
             final itemDate = DateTime.fromMillisecondsSinceEpoch(
-                (item.dt?.toInt() ?? DateTime.now().millisecond) * 1000);
+                (item.first.dt?.toInt() ?? DateTime.now().millisecond) * 1000);
             return InkWell(
               onTap: () {
                 developer.log("Item selected");
@@ -99,10 +84,10 @@ class BuildForecast extends HookConsumerWidget {
                           ),
                           BuildWeatherImage(
                               context: context,
-                              currentWeatherData: item,
+                              currentWeatherData: item.first,
                               imageSize: 70.0),
                           Text(
-                            "${item.main?.tempMin?.toInt().toString() ?? "--"} / ${item.main?.tempMax?.toInt().toString() ?? "--"} ${Config.units.unitSign}",
+                            "${item.first.main?.temp?.round().toString() ?? "--"} ${Config.units.unitSign} / ${item.last.main?.temp?.round().toString() ?? "--"} ${Config.units.unitSign}",
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
@@ -119,5 +104,17 @@ class BuildForecast extends HookConsumerWidget {
             );
           }),
     );
+  }
+
+  void _sortEntries(List<CurrentWeatherData> entriesData) {
+    entriesData.sort((a, b) {
+      final valueA = a.main?.temp;
+      final valueB = b.main?.temp;
+      if (valueA != null && valueB != null) {
+        return valueA.compareTo(valueB);
+      } else {
+        return 0;
+      }
+    });
   }
 }

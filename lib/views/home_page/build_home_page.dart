@@ -205,7 +205,7 @@ class BuildHomePage extends HookConsumerWidget {
   Widget _buildTempText(CurrentWeatherData? currentWeatherData) {
     return Center(
       child: Text(
-        "${currentWeatherData?.main?.temp?.toInt().toString() ?? "--"} ${Config.units.unitSign}",
+        "${currentWeatherData?.main?.temp?.round().toString() ?? "--"} ${Config.units.unitSign}",
         style: TextStyle(
             fontSize: 60,
             fontWeight: FontWeight.bold,
