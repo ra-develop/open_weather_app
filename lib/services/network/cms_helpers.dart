@@ -72,13 +72,13 @@ void dioErrorHandler(DioError e, {String? moduleName}) {
       name: "DioError.requestOptions.uri.path",
     );
     developer.log(
-      "\n" + e.requestOptions.queryParameters.toString(),
+      "\n${e.requestOptions.queryParameters}",
       name: "DioError.requestOptions.queryParameters",
     );
   } else {
     // Something happened in setting up or sending the request that triggered an Error
     // print("DioError.requestOptions:\n" + e.requestOptions.toString());
-    developer.log("\n" + e.requestOptions.toString(),
+    developer.log("\n${e.requestOptions}",
         name: "DioError.requestOptions");
   }
 }

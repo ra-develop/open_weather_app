@@ -31,7 +31,7 @@ class DemoPage extends ConsumerStatefulWidget {
 
 class _DemoPageState extends ConsumerState<DemoPage> {
   int _counter = 0;
-  GetCurrentWeatherDataArgs _getCurrentWeatherDataArgs =
+  final GetCurrentWeatherDataArgs _getCurrentWeatherDataArgs =
       const GetCurrentWeatherDataArgs();
 
   void _incrementCounter() {
