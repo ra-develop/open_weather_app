@@ -15,7 +15,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-This project used the [dart_json_mapper plugin](https://pub.dev/packages/dart_json_mapper). Before running this project, run this command:
+This project used the [dart_json_mapper plugin](https://pub.dev/packages/dart_json_mapper).  
+Before running this project, run this command:
 ```
 dart run build_runner build --delete-conflicting-outputs
 ```
