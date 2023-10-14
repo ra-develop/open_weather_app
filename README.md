@@ -1,22 +1,30 @@
-# open_weather_app
+# Open Weather App
 
-A new Flutter project.
+A Flutter demo project.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+This project is a starting point for a Flutter demo application that
+displays weather information for a given city using the REST API
+[openweathermap](https://openweathermap.org/api)
 
-A few resources to get you started if this is your first Flutter project:
+A few resources to get you started to use this Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Flutter installation](https://docs.flutter.dev/get-started)
+- [Set up an editor](https://docs.flutter.dev/get-started/editor)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For help getting started with Flutter project, view the
+[online documentation](https://docs.flutter.dev/).
 
-This project used the [dart_json_mapper plugin](https://pub.dev/packages/dart_json_mapper).  
-Before running this project, run this command:
+## Warnings
+
+In this project used the
+[dart_json_mapper plugin](https://pub.dev/packages/dart_json_mapper) for
+serialization the data entities.
+
+Before build and run an app of the project, run this command:
+
 ```
 dart run build_runner build --delete-conflicting-outputs
 ```
+
